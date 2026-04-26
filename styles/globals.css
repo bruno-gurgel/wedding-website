@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-ivory: #F8F4EF;
+  --color-green-deep: #2A4A35;
+  --color-blush: #D4A99A;
+  --color-gold: #7A5E12;
+  --color-cream: #EDE8E0;
+  --color-charcoal: #2C2C2C;
+
+  /* Fonts */
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
+
+  /* Animation durations */
+  --duration-standard: 300ms;
+  --duration-cinematic: 800ms;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+}
+
+/* Section scroll targets — offset for fixed nav (64px) */
+[id] {
+  scroll-margin-top: 64px;
+}
