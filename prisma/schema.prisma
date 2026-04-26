@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model RSVPResponse {
+  id        String   @id @default(cuid())
+  guestName String
+  attending Boolean
+  createdAt DateTime @default(now())
+
+  @@map("rsvp_responses")
+}
+
+model Gift {
+  id           String    @id @default(cuid())
+  name         String
+  description  String
+  price        Decimal   @db.Decimal(10, 2)
+  externalUrl  String
+  imageUrl     String?
+  displayOrder Int       @default(0)
+  isTaken      Boolean   @default(false)
+  takenAt      DateTime?
+
+  @@map("gifts")
+}
