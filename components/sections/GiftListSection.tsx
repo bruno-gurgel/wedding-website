@@ -3,10 +3,18 @@ import { GiftCard } from '@/components/ui/GiftCard'
 
 async function getAvailableGifts() {
   try {
-    return await db.gift.findMany({
+    const gifts = await db.gift.findMany({
       where: { isTaken: false },
       orderBy: { displayOrder: 'asc' },
     })
+    return gifts.map((g) => ({
+      id: g.id,
+      name: g.name,
+      description: g.description,
+      price: g.price.toString(),
+      externalUrl: g.externalUrl,
+      isTaken: g.isTaken,
+    }))
   } catch {
     return null
   }

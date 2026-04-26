@@ -3,10 +3,18 @@
 import { useOptimistic, useTransition, useState } from 'react'
 import { claimGift } from '@/actions/gifts'
 import { formatPrice } from '@/lib/utils'
-import type { Gift } from '@prisma/client'
+
+export interface SerializedGift {
+  id: string
+  name: string
+  description: string
+  price: string
+  externalUrl: string
+  isTaken: boolean
+}
 
 interface GiftCardProps {
-  gift: Gift
+  gift: SerializedGift
 }
 
 export function GiftCard({ gift }: GiftCardProps) {
@@ -39,7 +47,7 @@ export function GiftCard({ gift }: GiftCardProps) {
 
       <div className="flex items-center justify-between mt-auto pt-2 border-t border-[--color-green-deep]/10">
         <span className="font-sans text-sm text-[--color-gold] font-medium">
-          {formatPrice(gift.price.toString())}
+          {formatPrice(gift.price)}
         </span>
         <a
           href={gift.externalUrl}

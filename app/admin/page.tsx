@@ -3,7 +3,7 @@ import { verifySessionCookie } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { AdminPassphraseForm } from './PassphraseForm'
 import { GiftForm } from './GiftForm'
-import { GiftManager } from './GiftManager'
+import { GiftManager, type SerializedGift } from './GiftManager'
 
 async function getRSVPs() {
   return db.rSVPResponse.findMany({ orderBy: { createdAt: 'desc' } })
@@ -31,7 +31,16 @@ export default async function AdminPage() {
     )
   }
 
-  const [responses, gifts] = await Promise.all([getRSVPs(), getGifts()])
+  const [responses, rawGifts] = await Promise.all([getRSVPs(), getGifts()])
+  const gifts: SerializedGift[] = rawGifts.map((g) => ({
+    id: g.id,
+    name: g.name,
+    description: g.description,
+    price: g.price.toString(),
+    externalUrl: g.externalUrl,
+    displayOrder: g.displayOrder,
+    isTaken: g.isTaken,
+  }))
   const attending = responses.filter((r) => r.attending).length
 
   return (

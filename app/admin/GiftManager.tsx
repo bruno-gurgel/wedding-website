@@ -3,10 +3,19 @@
 import { useTransition } from 'react'
 import { deleteGift } from '@/actions/gifts'
 import { formatPrice } from '@/lib/utils'
-import type { Gift } from '@prisma/client'
+
+export interface SerializedGift {
+  id: string
+  name: string
+  description: string
+  price: string
+  externalUrl: string
+  displayOrder: number
+  isTaken: boolean
+}
 
 interface GiftManagerProps {
-  gifts: Gift[]
+  gifts: SerializedGift[]
 }
 
 function DeleteButton({ giftId }: { giftId: string }) {
